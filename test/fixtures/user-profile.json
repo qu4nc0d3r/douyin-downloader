@@ -1,0 +1,12 @@
+{
+  "status_code": 0,
+  "user": {
+    "sec_uid": "MS4wLjABAAAA_test-sec-uid-1234567890",
+    "nickname": "Test Channel",
+    "unique_id": "testchannel",
+    "signature": "xin chào",
+    "avatar_larger": { "url_list": ["https://p3-pc-sign.douyinpic.com/avatar.jpeg"] },
+    "follower_count": 1234,
+    "aweme_count": 4
+  }
+}

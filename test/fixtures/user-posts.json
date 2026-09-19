@@ -1,0 +1,133 @@
+{
+  "page1": {
+    "status_code": 0,
+    "aweme_list": [
+      {
+        "aweme_id": "7380000000000000001",
+        "desc": "Video ghim",
+        "author": { "nickname": "Test Channel" },
+        "statistics": { "digg_count": 1200000 },
+        "images": null,
+        "video": {
+          "duration": 5000,
+          "cover": { "url_list": ["https://p3-sign.douyinpic.com/cover-1.jpeg"] },
+          "play_addr": {
+            "uri": "v0300fg10000cp856k7og65v9dtsd470",
+            "url_list": ["https://v5-dy.zjcdn.com/4c227455/video/tos/cn/video-1/?a=6383&ratio=720p&line=0"]
+          },
+          "bit_rate": [
+            {
+              "gear_name": "normal_720_0",
+              "bit_rate": 1368885,
+              "is_h265": 0,
+              "play_addr": {
+                "uri": "v0300fg10000cp856k7og65v9dtsd470",
+                "width": 1280,
+                "height": 720,
+                "url_list": ["https://v5-dy.zjcdn.com/24b586c7/video/tos/cn/video-1/?a=6383&ratio=720p&line=0"]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "aweme_id": "7380000000000000002",
+        "desc": "Bài đăng ảnh",
+        "author": { "nickname": "Test Channel" },
+        "images": [{ "url_list": ["https://p3-sign.douyinpic.com/img-1.jpeg"] }],
+        "video": { "cover": { "url_list": ["https://p3-sign.douyinpic.com/cover-2.jpeg"] } }
+      },
+      {
+        "aweme_id": "7380000000000000003",
+        "desc": "Video thứ hai",
+        "author": { "nickname": "Test Channel" },
+        "images": null,
+        "video": {
+          "duration": 6000,
+          "cover": { "url_list": ["https://p3-sign.douyinpic.com/cover-3.jpeg"] },
+          "play_addr": {
+            "uri": "v0300fg10000cp856k7og65v9dtsd471",
+            "url_list": ["https://v5-dy.zjcdn.com/4c227455/video/tos/cn/video-3/?a=6383&ratio=720p&line=0"]
+          },
+          "bit_rate": [
+            {
+              "gear_name": "normal_720_0",
+              "bit_rate": 1200000,
+              "is_h265": 0,
+              "play_addr": {
+                "uri": "v0300fg10000cp856k7og65v9dtsd471",
+                "width": 1280,
+                "height": 720,
+                "url_list": ["https://v5-dy.zjcdn.com/24b586c7/video/tos/cn/video-3/?a=6383&ratio=720p&line=0"]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "has_more": 1,
+    "max_cursor": 111
+  },
+  "page2": {
+    "status_code": 0,
+    "aweme_list": [
+      {
+        "aweme_id": "7380000000000000001",
+        "desc": "Video ghim",
+        "author": { "nickname": "Test Channel" },
+        "statistics": { "digg_count": 1200000 },
+        "images": null,
+        "video": {
+          "duration": 5000,
+          "cover": { "url_list": ["https://p3-sign.douyinpic.com/cover-1.jpeg"] },
+          "play_addr": {
+            "uri": "v0300fg10000cp856k7og65v9dtsd470",
+            "url_list": ["https://v5-dy.zjcdn.com/4c227455/video/tos/cn/video-1/?a=6383&ratio=720p&line=0"]
+          },
+          "bit_rate": [
+            {
+              "gear_name": "normal_720_0",
+              "bit_rate": 1368885,
+              "is_h265": 0,
+              "play_addr": {
+                "uri": "v0300fg10000cp856k7og65v9dtsd470",
+                "width": 1280,
+                "height": 720,
+                "url_list": ["https://v5-dy.zjcdn.com/24b586c7/video/tos/cn/video-1/?a=6383&ratio=720p&line=0"]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "aweme_id": "7380000000000000004",
+        "desc": "Video thứ ba",
+        "author": { "nickname": "Test Channel" },
+        "images": null,
+        "video": {
+          "duration": 7000,
+          "cover": { "url_list": ["https://p3-sign.douyinpic.com/cover-4.jpeg"] },
+          "play_addr": {
+            "uri": "v0300fg10000cp856k7og65v9dtsd472",
+            "url_list": ["https://v5-dy.zjcdn.com/4c227455/video/tos/cn/video-4/?a=6383&ratio=720p&line=0"]
+          },
+          "bit_rate": [
+            {
+              "gear_name": "normal_720_0",
+              "bit_rate": 1500000,
+              "is_h265": 0,
+              "play_addr": {
+                "uri": "v0300fg10000cp856k7og65v9dtsd472",
+                "width": 1280,
+                "height": 720,
+                "url_list": ["https://v5-dy.zjcdn.com/24b586c7/video/tos/cn/video-4/?a=6383&ratio=720p&line=0"]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "has_more": 0,
+    "max_cursor": 222
+  }
+}

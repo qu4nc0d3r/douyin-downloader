@@ -1,0 +1,121 @@
+{
+  "aweme_id": "7372484719365098803",
+  "desc": "Test video tiêu đề",
+  "author": { "nickname": "Test Author" },
+  "statistics": { "digg_count": 45300 },
+  "images": null,
+  "video": {
+    "duration": 8010,
+    "cover": { "url_list": ["https://p3-sign.douyinpic.com/cover.jpeg"] },
+    "play_addr": {
+      "uri": "v0300fg10000cp856k7og65v9dtsd470",
+      "url_list": [
+        "https://v5-dy-ov-experiment.zjcdn.com/4c227455/video/tos/cn/tos-cn-ve-15c001-alinc2/ooi3AvfDDIfQ9GmASVbOBUk/?a=6383&ratio=720p&line=0"
+      ]
+    },
+    "download_addr": {
+      "uri": "v0300fg10000cp856k7og65v9dtsd470",
+      "url_list": [
+        "https://v5-dy-ov-experiment.zjcdn.com/7df91adb/video/cn/mps/logo/r/p/v0300fg10000cp856k7og65v9dtsd470/75ec1"
+      ]
+    },
+    "bit_rate": [
+      {
+        "gear_name": "adapt_lowest_4_1",
+        "bit_rate": 5533124,
+        "quality_type": 72,
+        "is_h265": 1,
+        "play_addr": {
+          "uri": "v0300fg10000cp856k7og65v9dtsd470",
+          "width": 3840,
+          "height": 2160,
+          "url_list": [
+            "https://v5-dy-ov-experiment.zjcdn.com/e4bf5df8/video/tos/cn/tos-cn-ve-15c001-alinc2/ooi3AvfDDIfQ9GmASVbOBUk/?a=6383&ratio=2160p&line=0"
+          ]
+        }
+      },
+      {
+        "gear_name": "pay_bvc1_hdr_r1_adapt_lowest_4_1",
+        "bit_rate": 4851386,
+        "quality_type": 72,
+        "is_h265": 1,
+        "play_addr": {
+          "uri": "v0300fg10000cp856k7og65v9dtsd470",
+          "width": 3840,
+          "height": 2160,
+          "url_list": [
+            "https://v5-dy-ov-experiment.zjcdn.com/9c9c95ae/video/tos/cn/tos-cn-ve-15c001-alinc2/ooi3AvfDDIfQ9GmASVbOBUk/?a=6383&ratio=2160p&line=0"
+          ]
+        }
+      },
+      {
+        "gear_name": "normal_1080_0",
+        "bit_rate": 1603814,
+        "quality_type": 4,
+        "is_h265": 0,
+        "play_addr": {
+          "uri": "v0300fg10000cp856k7og65v9dtsd470",
+          "width": 1920,
+          "height": 1080,
+          "url_list": [
+            "https://v5-dy-ov-experiment.zjcdn.com/4c227455/video/tos/cn/tos-cn-ve-15c001-alinc2/ooi3AvfDDIfQ9GmASVbOBUk/?a=6383&ratio=1080p&line=0"
+          ]
+        }
+      },
+      {
+        "gear_name": "normal_720_0",
+        "bit_rate": 1368885,
+        "quality_type": 3,
+        "is_h265": 0,
+        "play_addr": {
+          "uri": "v0300fg10000cp856k7og65v9dtsd470",
+          "width": 1280,
+          "height": 720,
+          "url_list": [
+            "https://v5-dy-ov-experiment.zjcdn.com/24b586c7/video/tos/cn/tos-cn-ve-15c001-alinc2/ooi3AvfDDIfQ9GmASVbOBUk/?a=6383&ratio=720p&line=0"
+          ]
+        }
+      },
+      {
+        "gear_name": "normal_540_0",
+        "bit_rate": 1227309,
+        "quality_type": 2,
+        "is_h265": 0,
+        "play_addr": {
+          "uri": "v0300fg10000cp856k7og65v9dtsd470",
+          "width": 1024,
+          "height": 576,
+          "url_list": [
+            "https://v5-dy-ov-experiment.zjcdn.com/5222e391/video/tos/cn/tos-cn-ve-15c001-alinc2/ooi3AvfDDIfQ9GmASVbOBUk/?a=6383&ratio=540p&line=0"
+          ]
+        }
+      },
+      {
+        "gear_name": "1080_1_1",
+        "bit_rate": 1177589,
+        "is_h265": 1,
+        "play_addr": {
+          "uri": "v0300fg10000cp856k7og65v9dtsd470",
+          "width": 1920,
+          "height": 1080,
+          "url_list": [
+            "https://v5-dy-ov-experiment.zjcdn.com/704cd538/video/tos/cn/tos-cn-ve-15c001-alinc2/ooi3AvfDDIfQ9GmASVbOBUk/?a=6383&ratio=1080p&line=0"
+          ]
+        }
+      },
+      {
+        "gear_name": "low_720_0",
+        "bit_rate": 1030622,
+        "is_h265": 0,
+        "play_addr": {
+          "uri": "v0300fg10000cp856k7og65v9dtsd470",
+          "width": 1280,
+          "height": 720,
+          "url_list": [
+            "https://v5-dy-ov-experiment.zjcdn.com/b059b9a7/video/tos/cn/tos-cn-ve-15c001-alinc2/ooi3AvfDDIfQ9GmASVbOBUk/?a=6383&ratio=720p&line=0"
+          ]
+        }
+      }
+    ]
+  }
+}

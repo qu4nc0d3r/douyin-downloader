@@ -1,0 +1,47 @@
+{
+  "loaderData": {
+    "video_(id)/page": {
+      "videoInfoRes": {
+        "item_list": [
+          {
+            "aweme_id": "7123456789012345678",
+            "desc": "Test video tiêu đề",
+            "author": { "nickname": "Test Author" },
+            "video": {
+              "duration": 15000,
+              "play_addr": {
+                "uri": "v0200fg10000abcdefghijklmnop",
+                "url_list": [
+                  "https://www.douyin.com/aweme/v1/playwm/?video_id=v0200fg10000abcdefghijklmnop&ratio=720p&line=0"
+                ]
+              },
+              "cover": { "url_list": ["https://p3-sign.douyinpic.com/cover.jpeg"] },
+              "bit_rate": [
+                {
+                  "gear_name": "normal_1080_0",
+                  "bit_rate": 2000000,
+                  "play_addr": {
+                    "uri": "v0200fg10000abcdefghijklmnop",
+                    "url_list": [
+                      "https://www.douyin.com/aweme/v1/play/?video_id=v0200fg10000abcdefghijklmnop&ratio=1080p&line=0"
+                    ]
+                  }
+                },
+                {
+                  "gear_name": "normal_720_0",
+                  "bit_rate": 1200000,
+                  "play_addr": {
+                    "uri": "v0200fg10000abcdefghijklmnop",
+                    "url_list": [
+                      "https://www.douyin.com/aweme/v1/play/?video_id=v0200fg10000abcdefghijklmnop&ratio=720p&line=0"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
