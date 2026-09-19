@@ -1,0 +1,8 @@
+name = "douyin-edge-cache"
+main = "src/index.js"
+compatibility_date = "2024-09-01"
+account_id = "6516b148a09af2d002a6266194e33135"
+
+[[kv_namespaces]]
+binding = "DOUYIN_CACHE"
+id = "2b970d4edf434e18a79b36568f5af345"
