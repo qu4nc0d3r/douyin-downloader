@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Downloaded videos
+downloads/*
+!downloads/.gitkeep
+
+# Local data (login cookie, window state)
+data/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Build output
+build/
+dist/
+dist-desktop/
+*.part
+
+# Local design/workflow notes (not part of the public repo)
+docs/superpowers/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log

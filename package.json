@@ -1,0 +1,83 @@
+{
+  "name": "douyin-downloader",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local web app to download Douyin videos without watermark, with queue, channel bulk download and optional login cookies",
+  "author": "qu4nc0d3r",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qu4nc0d3r/douyin-downloader.git"
+  },
+  "keywords": [
+    "douyin",
+    "downloader",
+    "no-watermark",
+    "express",
+    "headless-chrome"
+  ],
+  "type": "module",
+  "main": "electron/main.js",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test",
+    "desktop": "electron .",
+    "build:desktop": "electron-builder --win",
+    "build:exe": "node scripts/build-exe.mjs"
+  },
+  "build": {
+    "appId": "com.local.douyin-download",
+    "productName": "Douyin Downloader",
+    "directories": {
+      "output": "dist-desktop"
+    },
+    "asar": true,
+    "npmRebuild": false,
+    "electronLanguages": [
+      "vi",
+      "en-US"
+    ],
+    "electronFuses": {
+      "runAsNode": false,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "enableNodeCliInspectArguments": false,
+      "enableCookieEncryption": false
+    },
+    "win": {
+      "target": [
+        {
+          "target": "dir",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "files": [
+      "electron/**/*",
+      "src/**/*",
+      "public/**/*",
+      "package.json",
+      "!node_modules/lucide/icons/**",
+      "!node_modules/lucide/cjs/**",
+      "!node_modules/lucide/esm/**",
+      "!node_modules/lucide/dist/cjs/**",
+      "!node_modules/lucide/dist/esm/**",
+      "!node_modules/lucide/dist/umd/*.map",
+      "!node_modules/lucide/dist/umd/lucide.js"
+    ]
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "lucide": "^1.47.0"
+  },
+  "devDependencies": {
+    "electron": "^44.4.3",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.28.2",
+    "postject": "^1.0.0-alpha.6"
+  }
+}
