@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Douyin Downloader</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="titlebar">
+      <div class="titlebar-brand">
+        <span class="brand-badge brand-badge-sm"><i data-lucide="download"></i></span>
+        <span class="titlebar-title">Douyin Downloader</span>
+      </div>
+      <span class="titlebar-spacer" aria-hidden="true"></span>
+    </div>
+
+    <div class="app-shell">
+      <aside class="sidebar">
+        <nav class="sidebar-nav" role="tablist" aria-label="Điều hướng">
+          <button
+            id="tabExtract"
+            class="nav-btn active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="inputCard"
+          >
+            <span class="icon-wrap"><i data-lucide="scan-search"></i></span>
+            <span class="nav-label">Tải video</span>
+          </button>
+          <button
+            id="tabProfile"
+            class="nav-btn"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="profileSection"
+          >
+            <span class="icon-wrap"><i data-lucide="user-round"></i></span>
+            <span class="nav-label">Tải kênh</span>
+          </button>
+          <button
+            id="tabQueue"
+            class="nav-btn"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="queueSection"
+          >
+            <span class="icon-wrap"><i data-lucide="list-checks"></i></span>
+            <span class="nav-label">Hàng đợi</span>
+            <span id="tabQueueBadge" class="tab-badge hidden">0</span>
+          </button>
+          <button
+            id="navCookie"
+            class="nav-btn"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="cookiePanel"
+          >
+            <span class="icon-wrap"><i data-lucide="cookie"></i></span>
+            <span class="nav-label">Cookie đăng nhập</span>
+            <span id="cookieStatus" class="badge nav-badge">Chưa dùng</span>
+          </button>
+        </nav>
+        <div class="sidebar-actions">
+          <button id="zaloBtn" class="side-btn zalo-btn" type="button">
+            <span class="icon-wrap"><i data-lucide="users"></i></span>
+            <span>Tham gia nhóm Zalo</span>
+          </button>
+          <button id="donateBtn" class="side-btn donate-btn" type="button">
+            <span class="icon-wrap"><i data-lucide="heart"></i></span>
+            <span>Ủng hộ tác giả</span>
+          </button>
+        </div>
+        <div class="sidebar-footer">
+          <span class="sidebar-version">v0.1.0</span>
+          <span class="sidebar-shortcut" title="Chuyển trang nhanh: Ctrl+1, Ctrl+2, Ctrl+3, Ctrl+4">Ctrl+1·2·3·4</span>
+        </div>
+      </aside>
+
+      <main class="content">
+        <section id="inputCard" class="card">
+          <div class="field-label">
+            <i data-lucide="link-2"></i>
+            <span>Link hoặc text share</span>
+          </div>
+          <textarea id="input" rows="4" placeholder="Dán link Douyin để lấy thông tin, xem trước và tải..."></textarea>
+          <div class="row actions">
+            <button id="pasteBtn" class="btn btn-ghost" type="button">
+              <span class="icon-wrap"><i data-lucide="clipboard-paste"></i></span>
+              <span>Dán</span>
+            </button>
+            <button id="extractBtn" class="btn btn-primary" type="button">
+              <span class="icon-wrap" id="extractIdleIcon"><i data-lucide="scan-search"></i></span>
+              <span class="icon-wrap spin hidden" id="extractLoadingIcon"><i data-lucide="loader-circle"></i></span>
+              <span id="extractBtnText">Lấy thông tin</span>
+            </button>
+            <button id="queueAddBtn" class="btn btn-primary hidden" type="button">
+              <span class="icon-wrap"><i data-lucide="list-plus"></i></span>
+              <span>Thêm vào hàng đợi</span>
+            </button>
+          </div>
+          <p class="hint">
+            <i data-lucide="info"></i>
+            <span id="inputHint">Hỗ trợ xem trước video, thông tin tác giả và chọn độ phân giải trước khi tải.</span>
+          </p>
+        </section>
+
+        <section id="listSection" class="hidden">
+          <div class="list-head">
+            <div class="list-head-info">
+              <label id="extractCheckAllLabel" class="extract-selectall hidden">
+                <input type="checkbox" id="extractCheckAll" checked />
+                <span>Chọn tất cả</span>
+              </label>
+              <p id="listSummary" class="muted"></p>
+            </div>
+            <div class="list-head-actions">
+              <div class="view-toggle" role="group" aria-label="Chế độ xem">
+                <button id="viewListBtn" class="view-toggle-btn active" data-view="list" type="button" title="Dạng danh sách" aria-label="Dạng danh sách" aria-pressed="true">
+                  <span class="icon-wrap"><i data-lucide="layout-list"></i></span>
+                </button>
+                <button id="viewGridBtn" class="view-toggle-btn" data-view="grid" type="button" title="Dạng lưới" aria-label="Dạng lưới" aria-pressed="false">
+                  <span class="icon-wrap"><i data-lucide="layout-grid"></i></span>
+                </button>
+                <button id="viewCompactBtn" class="view-toggle-btn" data-view="compact" type="button" title="Dạng gọn" aria-label="Dạng gọn" aria-pressed="false">
+                  <span class="icon-wrap"><i data-lucide="rows-3"></i></span>
+                </button>
+              </div>
+              <button id="downloadSelectedBtn" class="btn btn-primary hidden" type="button">
+                <span class="icon-wrap" id="downloadSelectedIdleIcon"><i data-lucide="download"></i></span>
+                <span class="icon-wrap spin hidden" id="downloadSelectedLoadingIcon"><i data-lucide="loader-circle"></i></span>
+                <span id="downloadSelectedText">Tải mục đã chọn</span>
+              </button>
+              <button id="downloadAllBtn" class="btn btn-ghost hidden" type="button">
+                <span class="icon-wrap" id="downloadAllIdleIcon"><i data-lucide="cloud-download"></i></span>
+                <span class="icon-wrap spin hidden" id="downloadAllLoadingIcon"><i data-lucide="loader-circle"></i></span>
+                <span id="downloadAllText">Tải tất cả</span>
+              </button>
+              <button id="pauseAllBtn" class="btn btn-ghost hidden" type="button">
+                <span class="icon-wrap"><i data-lucide="pause"></i></span>
+                <span>Tạm dừng tất cả</span>
+              </button>
+              <button id="resumeAllBtn" class="btn btn-ghost hidden" type="button">
+                <span class="icon-wrap"><i data-lucide="play"></i></span>
+                <span>Tiếp tục tất cả</span>
+              </button>
+            </div>
+          </div>
+          <div id="items"></div>
+        </section>
+
+        <section id="profileSection" class="card hidden">
+          <div class="field-label">
+            <i data-lucide="user-round"></i>
+            <span>URL kênh hoặc link chia sẻ</span>
+          </div>
+          <textarea id="profileInput" rows="3" placeholder="Dán URL kênh Douyin (douyin.com/user/...) hoặc link chia sẻ..."></textarea>
+          <div class="row actions">
+            <button id="profilePasteBtn" class="btn btn-ghost" type="button">
+              <span class="icon-wrap"><i data-lucide="clipboard-paste"></i></span>
+              <span>Dán</span>
+            </button>
+            <button id="profileFetchBtn" class="btn btn-primary" type="button">
+              <span class="icon-wrap" id="profileFetchIdleIcon"><i data-lucide="list-video"></i></span>
+              <span class="icon-wrap spin hidden" id="profileFetchLoadingIcon"><i data-lucide="loader-circle"></i></span>
+              <span id="profileFetchBtnText">Lấy danh sách</span>
+            </button>
+          </div>
+          <p class="hint">
+            <i data-lucide="info"></i>
+            <span>Lấy toàn bộ video của kênh (tối đa 200 mỗi lần, có nút Tải thêm). Video lưu vào thư mục downloads theo tên kênh.</span>
+          </p>
+
+          <div id="profileCard" class="profile-card hidden">
+            <img id="profileAvatar" class="profile-avatar" alt="Ảnh đại diện kênh" />
+            <div class="profile-card-text">
+              <h2 id="profileName"></h2>
+              <p id="profileStats" class="muted"></p>
+            </div>
+          </div>
+
+          <div id="profileListHead" class="list-head hidden">
+            <div class="list-head-info">
+              <label id="profileCheckAllLabel" class="extract-selectall hidden">
+                <input type="checkbox" id="profileCheckAll" checked />
+                <span>Chọn tất cả</span>
+              </label>
+              <p id="profileSummary" class="muted"></p>
+            </div>
+            <div class="list-head-actions">
+              <div class="view-toggle" role="group" aria-label="Chế độ xem">
+                <button id="profileViewListBtn" class="view-toggle-btn active" data-view="list" type="button" title="Dạng danh sách" aria-label="Dạng danh sách" aria-pressed="true">
+                  <span class="icon-wrap"><i data-lucide="layout-list"></i></span>
+                </button>
+                <button id="profileViewGridBtn" class="view-toggle-btn" data-view="grid" type="button" title="Dạng lưới" aria-label="Dạng lưới" aria-pressed="false">
+                  <span class="icon-wrap"><i data-lucide="layout-grid"></i></span>
+                </button>
+                <button id="profileViewCompactBtn" class="view-toggle-btn" data-view="compact" type="button" title="Dạng gọn" aria-label="Dạng gọn" aria-pressed="false">
+                  <span class="icon-wrap"><i data-lucide="rows-3"></i></span>
+                </button>
+              </div>
+              <button id="profileDownloadSelected" class="btn btn-primary hidden" type="button">
+                <span class="icon-wrap" id="profileDownloadSelectedIdleIcon"><i data-lucide="download"></i></span>
+                <span class="icon-wrap spin hidden" id="profileDownloadSelectedLoadingIcon"><i data-lucide="loader-circle"></i></span>
+                <span id="profileDownloadSelectedText">Tải mục đã chọn</span>
+              </button>
+              <button id="profileDownloadAll" class="btn btn-ghost hidden" type="button">
+                <span class="icon-wrap"><i data-lucide="cloud-download"></i></span>
+                <span>Tải tất cả</span>
+              </button>
+              <button id="profilePauseAllBtn" class="btn btn-ghost hidden" type="button">
+                <span class="icon-wrap"><i data-lucide="pause"></i></span>
+                <span>Tạm dừng tất cả</span>
+              </button>
+              <button id="profileResumeAllBtn" class="btn btn-ghost hidden" type="button">
+                <span class="icon-wrap"><i data-lucide="play"></i></span>
+                <span>Tiếp tục tất cả</span>
+              </button>
+            </div>
+          </div>
+          <div id="profileItems"></div>
+          <div id="profileLoadMoreRow" class="row actions hidden">
+            <button id="profileLoadMore" class="btn btn-ghost hidden" type="button">
+              <span class="icon-wrap"><i data-lucide="chevrons-down"></i></span>
+              <span>Tải thêm</span>
+            </button>
+          </div>
+        </section>
+
+        <section id="queueSection" class="card hidden">
+          <div class="queue-head">
+            <div class="queue-title">
+              <span class="icon-wrap queue-title-icon"><i data-lucide="list-checks"></i></span>
+              <h2>Hàng đợi</h2>
+              <span id="queueCount" class="badge">0</span>
+            </div>
+            <div id="queueHeadActions" class="row actions hidden">
+              <button id="queueDownloadSelected" class="btn btn-primary btn-sm" type="button">
+                <span class="icon-wrap" id="queueDlIdleIcon"><i data-lucide="download"></i></span>
+                <span class="icon-wrap spin hidden" id="queueDlLoadingIcon"><i data-lucide="loader-circle"></i></span>
+                <span id="queueDlText">Tải mục đã chọn</span>
+              </button>
+              <button id="queueDownloadAll" class="btn btn-ghost btn-sm" type="button">
+                <span class="icon-wrap"><i data-lucide="cloud-download"></i></span>
+                <span>Tải tất cả</span>
+              </button>
+              <button id="queuePauseAll" class="btn btn-ghost btn-sm hidden" type="button">
+                <span class="icon-wrap"><i data-lucide="pause"></i></span>
+                <span>Tạm dừng tất cả</span>
+              </button>
+              <button id="queueResumeAll" class="btn btn-ghost btn-sm hidden" type="button">
+                <span class="icon-wrap"><i data-lucide="play"></i></span>
+                <span>Tiếp tục tất cả</span>
+              </button>
+              <button id="queueRemoveSelected" class="btn btn-ghost btn-sm" type="button">
+                <span class="icon-wrap"><i data-lucide="trash-2"></i></span>
+                <span>Xóa mục đã chọn</span>
+              </button>
+            </div>
+          </div>
+          <div id="queueEmpty" class="queue-empty">
+            <span class="icon-wrap queue-empty-icon"><i data-lucide="inbox"></i></span>
+            <p class="muted">Chưa có video nào trong hàng đợi. Dán link ở trên rồi bấm <strong>Thêm vào hàng đợi</strong>.</p>
+          </div>
+          <label id="queueCheckAllLabel" class="queue-selectall hidden">
+            <input type="checkbox" id="queueCheckAll" />
+            <span>Chọn tất cả</span>
+          </label>
+          <p id="queueSummary" class="muted small"></p>
+          <ul id="queueList" class="queue-list"></ul>
+        </section>
+
+        <section id="cookiePanel" class="card hidden">
+          <div class="queue-head">
+            <div class="queue-title">
+              <span class="icon-wrap queue-title-icon"><i data-lucide="cookie"></i></span>
+              <h2>Cookie đăng nhập</h2>
+              <span id="cookieDetail" class="badge hidden"></span>
+            </div>
+          </div>
+          <div class="cookie-guide">
+            <div class="cookie-guide-head">
+              <span class="icon-wrap cookie-guide-icon"><i data-lucide="circle-help"></i></span>
+              <span class="cookie-guide-title">Cách lấy cookie nhanh</span>
+              <a
+                class="btn btn-ghost btn-sm"
+                href="https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="icon-wrap"><i data-lucide="external-link"></i></span>
+                <span>Cài extension Get cookies.txt LOCALLY</span>
+              </a>
+            </div>
+            <ol class="cookie-steps">
+              <li>Đăng nhập douyin.com trên trình duyệt, bấm icon extension.</li>
+              <li>Chọn <strong>Export</strong> (Netscape/JSON) hoặc <strong>Copy</strong> header string.</li>
+              <li>Dán kết quả vào ô bên dưới rồi bấm <strong>Lưu cookie</strong> (hoặc Ctrl+Enter).</li>
+            </ol>
+            <p class="hint">
+              <i data-lucide="info"></i>
+              <span>
+                Hỗ trợ file cookies.txt (Netscape), JSON export, header string, cURL và cookie trần.
+                Chỉ cookie đăng nhập (sessionid, sid_tt…) được dùng; cookie fingerprint (ttwid, UIFID…)
+                bị bỏ qua để tránh xung đột. Cookie chỉ lưu trên máy bạn (data/cookie.json).
+              </span>
+            </p>
+          </div>
+          <textarea id="cookieInput" rows="3" placeholder="Dán cookies.txt (Netscape), JSON export, header string hoặc Copy as cURL..."></textarea>
+          <div class="row actions">
+            <button id="cookieSave" class="btn btn-primary" type="button">
+              <span class="icon-wrap" id="cookieSaveIdleIcon"><i data-lucide="save"></i></span>
+              <span class="icon-wrap spin hidden" id="cookieSaveLoadingIcon"><i data-lucide="loader-circle"></i></span>
+              <span id="cookieSaveText">Lưu cookie</span>
+            </button>
+            <button id="cookieClear" class="btn btn-ghost hidden" type="button">
+              <span class="icon-wrap"><i data-lucide="trash-2"></i></span>
+              <span>Xóa cookie</span>
+            </button>
+            <button id="cookieCheck" class="btn btn-ghost hidden" type="button">
+              <span class="icon-wrap"><i data-lucide="user-search"></i></span>
+              <span>Kiểm tra tài khoản</span>
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="error" class="alert hidden" role="alert">
+      <span class="alert-icon"><i data-lucide="circle-alert"></i></span>
+      <p id="errorText"></p>
+      <button id="errorClose" class="icon-btn" type="button" aria-label="Đóng thông báo lỗi">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <div id="conflictModal" class="modal-backdrop hidden">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="conflictTitle">
+        <span class="modal-icon"><i data-lucide="file-warning"></i></span>
+        <h2 id="conflictTitle">File đã tồn tại</h2>
+        <p id="conflictText" class="muted"></p>
+        <label class="conflict-applyall">
+          <input type="checkbox" id="conflictApplyAll" />
+          <span>Áp dụng lựa chọn này cho tất cả file trùng tiếp theo</span>
+        </label>
+        <div class="row actions modal-actions">
+          <button id="conflictRename" class="btn btn-primary" type="button">Tạo tên mới</button>
+          <button id="conflictOverwrite" class="btn btn-danger" type="button">Ghi đè</button>
+          <button id="conflictCancel" class="btn btn-ghost" type="button">Hủy</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="accountModal" class="modal-backdrop hidden">
+      <div class="modal account-modal" role="dialog" aria-modal="true" aria-label="Thông tin tài khoản">
+        <button id="accountClose" class="icon-btn account-close" type="button" aria-label="Đóng">
+          <i data-lucide="x"></i>
+        </button>
+        <div id="accountLoading" class="account-loading">
+          <span class="icon-wrap spin"><i data-lucide="loader-circle"></i></span>
+          <p class="muted">Đang kiểm tra cookie...</p>
+        </div>
+        <div id="accountError" class="hidden">
+          <span class="modal-icon"><i data-lucide="circle-alert"></i></span>
+          <h2>Không kiểm tra được</h2>
+          <p id="accountErrorText" class="muted"></p>
+          <div class="row actions">
+            <button id="accountErrorClose" class="btn btn-ghost" type="button">Đóng</button>
+          </div>
+        </div>
+        <div id="accountBody" class="hidden">
+          <div class="account-head">
+            <img id="accountAvatar" class="account-avatar" alt="Ảnh đại diện" />
+            <div class="account-head-text">
+              <h2 id="accountNickname"></h2>
+              <p id="accountUniqueId" class="muted"></p>
+            </div>
+          </div>
+          <p id="accountSignature" class="muted account-signature hidden"></p>
+          <ul class="account-stats">
+            <li><strong id="accountFollowers">-</strong><span>Follower</span></li>
+            <li><strong id="accountFollowing">-</strong><span>Đang follow</span></li>
+            <li><strong id="accountAwemes">-</strong><span>Video</span></li>
+            <li><strong id="accountLikes">-</strong><span>Like nhận</span></li>
+          </ul>
+          <p class="muted small">UID: <span id="accountUid"></span></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="donateModal" class="modal-backdrop hidden">
+      <div class="modal donate-modal" role="dialog" aria-modal="true" aria-label="Ủng hộ tác giả">
+        <button id="donateClose" class="icon-btn account-close" type="button" aria-label="Đóng">
+          <i data-lucide="x"></i>
+        </button>
+        <span class="modal-icon donate-icon"><i data-lucide="heart"></i></span>
+        <h2>Ủng hộ tác giả</h2>
+        <p class="muted">Quét mã QR bằng app MoMo để ủng hộ mình. Cảm ơn bạn!</p>
+        <div class="donate-qr-wrap">
+          <div id="donateQrLoading" class="donate-qr-loading">
+            <span class="icon-wrap spin"><i data-lucide="loader-circle"></i></span>
+            <p>Đang tải mã QR...</p>
+          </div>
+          <p id="donateQrError" class="donate-qr-error hidden">
+            Không tải được mã QR. Kiểm tra kết nối mạng rồi mở lại.
+          </p>
+          <img id="donateQr" class="donate-qr hidden" alt="Mã QR MoMo ủng hộ tác giả" />
+        </div>
+        <div class="row actions modal-actions donate-actions">
+          <button id="donateCopy" class="btn btn-ghost" type="button">
+            <span class="icon-wrap"><i data-lucide="copy"></i></span>
+            <span id="donateCopyText">Copy số MoMo</span>
+          </button>
+          <button id="donateCloseBtn" class="btn btn-primary" type="button">Đóng</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="zaloModal" class="modal-backdrop hidden">
+      <div class="modal donate-modal zalo-modal" role="dialog" aria-modal="true" aria-label="Tham gia nhóm Zalo">
+        <button id="zaloClose" class="icon-btn account-close" type="button" aria-label="Đóng">
+          <i data-lucide="x"></i>
+        </button>
+        <span class="modal-icon donate-icon zalo-icon"><i data-lucide="users"></i></span>
+        <h2>Tham gia nhóm Zalo</h2>
+        <p class="muted">Nhóm chia sẻ công cụ hay: hỏi đáp, báo lỗi và nhận bản cập nhật mới.</p>
+        <div class="donate-qr-wrap">
+          <img id="zaloQr" class="donate-qr" src="/zalo-qr.png" alt="Mã QR nhóm Zalo chia sẻ công cụ" />
+        </div>
+        <p class="zalo-link">
+          <i data-lucide="link-2"></i>
+          <span id="zaloUrlText">zalo.me/g/sq0cjgbxtheqvuyaubcn</span>
+        </p>
+        <div class="row actions modal-actions donate-actions">
+          <button id="zaloCopy" class="btn btn-ghost" type="button">
+            <span class="icon-wrap"><i data-lucide="copy"></i></span>
+            <span id="zaloCopyText">Copy link</span>
+          </button>
+          <a
+            id="zaloOpen"
+            class="btn btn-primary"
+            href="https://zalo.me/g/sq0cjgbxtheqvuyaubcn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="icon-wrap"><i data-lucide="external-link"></i></span>
+            <span>Mở nhóm Zalo</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div id="legalModal" class="modal-backdrop hidden">
+      <div class="modal legal-modal" role="dialog" aria-modal="true" aria-label="Miễn trừ trách nhiệm">
+        <div class="legal-head">
+          <span class="legal-icon"><i data-lucide="shield-alert"></i></span>
+          <div class="legal-head-text">
+            <h2>Miễn trừ trách nhiệm</h2>
+            <p class="legal-sub">
+              Ứng dụng miễn phí, chỉ dành cho mục đích cá nhân. Bằng việc sử dụng, bạn đồng ý rằng:
+            </p>
+          </div>
+        </div>
+        <ul class="legal-list">
+          <li>
+            <span class="legal-item-icon"><i data-lucide="scale"></i></span>
+            <p>
+              <strong>Bạn tự chịu trách nhiệm</strong> cho mọi hành vi sử dụng ứng dụng. Tác giả
+              không chịu trách nhiệm nếu ứng dụng được dùng cho các hành vi vi phạm pháp luật Việt Nam,
+              bao gồm nhưng không giới hạn: vi phạm bản quyền, phát tán nội dung trái phép,
+              xâm phạm quyền riêng tư.
+            </p>
+          </li>
+          <li>
+            <span class="legal-item-icon"><i data-lucide="copyright"></i></span>
+            <p>
+              <strong>Bản quyền video thuộc về tác giả nội dung trên Douyin.</strong> Không đăng
+              lại, chia sẻ công khai hoặc sử dụng cho mục đích thương mại khi chưa có sự cho phép
+              của chủ sở hữu.
+            </p>
+          </li>
+          <li>
+            <span class="legal-item-icon"><i data-lucide="hard-drive"></i></span>
+            <p>
+              <strong>Ứng dụng không lưu trữ hay gửi dữ liệu của bạn lên máy chủ nào.</strong>
+              Cookie và file tải về chỉ nằm trên máy của bạn.
+            </p>
+          </li>
+          <li>
+            <span class="legal-item-icon"><i data-lucide="plug-zap"></i></span>
+            <p>
+              <strong>Ứng dụng hoạt động dựa trên API công khai của Douyin.</strong> API có thể
+              thay đổi hoặc ngừng hoạt động bất kỳ lúc nào mà không báo trước.
+            </p>
+          </li>
+        </ul>
+        <div class="legal-actions">
+          <button id="legalAccept" class="btn btn-primary" type="button">
+            <span class="icon-wrap"><i data-lucide="check"></i></span>
+            <span>Tôi đã hiểu và đồng ý</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <template id="queueItemTemplate">
+      <li class="queue-item">
+        <input type="checkbox" class="queue-item-check" />
+        <div class="queue-item-main">
+          <p class="queue-item-title"></p>
+          <div class="queue-item-status">
+            <span class="badge queue-item-badge">Chờ tải</span>
+            <span class="queue-item-note muted"></span>
+          </div>
+          <div class="queue-item-progress hidden">
+            <div class="progress"><div class="progress-bar"></div></div>
+          </div>
+        </div>
+        <button class="icon-btn queue-item-pause hidden" type="button" aria-label="Tạm dừng hoặc tiếp tục">
+          <i data-lucide="pause"></i>
+        </button>
+        <button class="icon-btn queue-item-remove" type="button" aria-label="Xóa khỏi hàng đợi">
+          <i data-lucide="x"></i>
+        </button>
+      </li>
+    </template>
+
+    <template id="itemTemplate">
+      <section class="card item">
+        <div class="item-main">
+          <div class="item-cover-wrap">
+            <label class="item-check-wrap" title="Chọn video này">
+              <input type="checkbox" class="item-check" checked />
+            </label>
+            <img class="item-cover" alt="Ảnh bìa video" />
+          </div>
+          <div class="meta">
+            <h2 class="item-title"></h2>
+            <ul class="facts">
+              <li class="item-author"><i data-lucide="user-round"></i><span></span></li>
+              <li class="item-duration"><i data-lucide="clock-3"></i><span></span></li>
+              <li class="item-likes hidden" title="Lượt thích"><i data-lucide="thumbs-up"></i><span></span></li>
+            </ul>
+            <div class="quality-row">
+              <label><i data-lucide="sliders-horizontal"></i><span>Chất lượng</span></label>
+              <select class="item-quality"></select>
+            </div>
+            <div class="row actions">
+              <button class="btn btn-primary item-download" type="button">
+                <span class="icon-wrap item-dl-idle"><i data-lucide="download"></i></span>
+                <span class="icon-wrap spin hidden item-dl-loading"><i data-lucide="loader-circle"></i></span>
+                <span class="item-dl-text">Tải video</span>
+              </button>
+              <button class="btn btn-ghost item-pause hidden" type="button">
+                <span class="icon-wrap item-pause-icon"><i data-lucide="pause"></i></span>
+                <span class="item-pause-text">Tạm dừng</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="item-progress hidden">
+          <div class="progress"><div class="progress-bar"></div></div>
+          <p class="item-progress-text muted"></p>
+        </div>
+        <div class="item-result hidden">
+          <div class="result-head">
+            <span class="result-icon"><i data-lucide="circle-check"></i></span>
+            <div>
+              <h2>Đã tải xong</h2>
+              <p class="item-result-name muted"></p>
+            </div>
+          </div>
+          <p class="item-result-path path"></p>
+          <div class="row actions">
+            <button class="btn btn-primary item-open" type="button">
+              <span class="icon-wrap"><i data-lucide="folder-open"></i></span>
+              <span>Mở thư mục</span>
+            </button>
+            <button class="btn btn-ghost item-copy" type="button">
+              <span class="icon-wrap item-copy-idle"><i data-lucide="copy"></i></span>
+              <span class="icon-wrap hidden item-copy-done"><i data-lucide="check"></i></span>
+              <span class="item-copy-text">Copy đường dẫn</span>
+            </button>
+          </div>
+        </div>
+        <div class="alert item-error hidden">
+          <span class="alert-icon"><i data-lucide="circle-alert"></i></span>
+          <p class="item-error-text"></p>
+        </div>
+      </section>
+    </template>
+
+    <template id="imageItemTemplate">
+      <section class="card item item-unsupported" data-selected="false">
+        <div class="item-main">
+          <div class="item-cover-wrap">
+            <span class="item-unsupported-badge">Ảnh - không hỗ trợ</span>
+            <img class="item-cover" alt="Ảnh bìa bài đăng ảnh" />
+          </div>
+          <div class="meta">
+            <h2 class="item-title"></h2>
+            <ul class="facts">
+              <li class="item-author"><i data-lucide="user-round"></i><span></span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </template>
+
+    <script src="/vendor/lucide/lucide.min.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
